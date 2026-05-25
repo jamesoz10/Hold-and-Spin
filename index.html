@@ -180,9 +180,18 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opac
 .sym.wild-sym{background:radial-gradient(circle,rgba(255,209,102,.1),transparent 70%);}
 .sym.hi{animation:hilight .7s ease infinite alternate;}
 @keyframes hilight{from{background:rgba(255,209,102,.06);}to{background:rgba(255,209,102,.2);filter:brightness(1.25);}}
-.sym .wmark{position:absolute;inset:2px;border:1px solid rgba(255,209,102,.6);border-radius:3px;opacity:0;pointer-events:none;}
+.sym .wmark{position:absolute;inset:2px;border:1px solid rgba(255,209,102,.6);border-radius:3px;opacity:0;pointer-events:none;z-index:3;}
 .sym.hi .wmark{opacity:1;animation:mkp .7s ease infinite;}
 @keyframes mkp{0%,100%{box-shadow:inset 0 0 8px rgba(255,209,102,.2);}50%{box-shadow:inset 0 0 16px rgba(255,209,102,.5),0 0 8px rgba(255,209,102,.3);}}
+.sym img.sym-img{max-width:96%;max-height:96%;object-fit:contain;
+  filter:drop-shadow(0 2px 4px rgba(0,0,0,.6));transition:filter .2s,transform .15s;
+  pointer-events:none;-webkit-user-drag:none;}
+.sym.wild-sym img.sym-img{filter:drop-shadow(0 0 10px rgba(255,209,102,.7)) drop-shadow(0 2px 4px rgba(0,0,0,.6));}
+.sym.hi img.sym-img{filter:drop-shadow(0 0 14px rgba(255,209,102,.9)) drop-shadow(0 2px 4px rgba(0,0,0,.6));}
+.sym.flash-win img.sym-img{filter:drop-shadow(0 0 18px rgba(255,209,102,1)) brightness(1.15);transform:scale(1.04);}
+.sym.dim-sym img.sym-img{filter:brightness(.3) saturate(.3) drop-shadow(0 2px 4px rgba(0,0,0,.6));}
+.sym.dcash img.sym-img{max-width:50%;max-height:70%;}
+.sym.dcash img.dcash-b{margin-left:-10px;}
 
 /* WIN LINES */
 .win-line-overlay{position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none;z-index:15;}
@@ -1154,14 +1163,43 @@ function symDisplay(sym){
   return sym;
 }
 
+// Map each symbol to its image asset
+const SYM_IMG={
+  [DIA]:'assets/sym-diamond.png',
+  [MSK]:'assets/sym-mask.png',
+  [DIC]:'assets/sym-dice.png',
+  [CKT]:'assets/sym-cocktail.png',
+  [ACE]:'assets/sym-ace.png',
+  [KNG]:'assets/sym-king.png',
+  [QEN]:'assets/sym-queen.png',
+  [JAK]:'assets/sym-jack.png',
+  [TEN]:'assets/sym-ten.png',
+  [WILD]:'assets/sym-wild.png',
+  [SCAT]:'assets/sym-scatter.png',
+  [CASH]:'assets/sym-cash.png',
+  [FAB]:'assets/sym-vip.png',
+  [VGS]:'assets/sym-vegas.png',
+};
+
+function symHTML(sym){
+  if(sym===DCASH){
+    // double cash: two stacked cash images
+    return `<img src="assets/sym-cash.png" class="sym-img dcash-a" alt=""><img src="assets/sym-cash.png" class="sym-img dcash-b" alt="">`;
+  }
+  const src=SYM_IMG[sym];
+  if(src)return `<img src="${src}" class="sym-img" alt="">`;
+  // Fallback to emoji if asset missing
+  return `<span style="font-size:36px">${symDisplay(sym)}</span>`;
+}
+
 function drawReel(ri,syms){
   const strip=$('s'+ri);strip.innerHTML='';
   [...syms,...syms,...syms].forEach(sym=>{
     const d=document.createElement('div');
     const isW=(sym===WILD);
-    d.className='sym'+(isW?' wild-sym':'');
+    d.className='sym'+(isW?' wild-sym':'')+(sym===DCASH?' dcash':'');
     d.dataset.sym=sym;
-    d.innerHTML=`<div class="wmark"></div><span style="font-size:${sym===DCASH?'22px':'36px'}">${symDisplay(sym)}</span>`;
+    d.innerHTML=`<div class="wmark"></div>${symHTML(sym)}`;
     strip.appendChild(d);
   });
 }
