@@ -350,127 +350,44 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opac
   </div>
 </div>
 <!-- SPLASH SCREEN -->
-<div id="splash" style="position:fixed;inset:0;z-index:2000;background:#06020F;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;" onclick="dismissSplash()">
-  <!-- Animated stars -->
-  <canvas id="splashCanvas" style="position:absolute;inset:0;pointer-events:none;"></canvas>
+<div id="splash" class="splash-root" onclick="dismissSplash()">
 
-  <!-- Neon city skyline SVG -->
-  <svg style="position:absolute;bottom:0;left:0;width:100%;height:45%;pointer-events:none;" viewBox="0 0 800 300" preserveAspectRatio="none">
-    <!-- Buildings -->
-    <rect x="0" y="180" width="60" height="120" fill="#0A0420"/>
-    <rect x="20" y="140" width="20" height="160" fill="#0D0528"/>
-    <rect x="70" y="200" width="80" height="100" fill="#080318"/>
-    <rect x="100" y="160" width="30" height="140" fill="#0A0420"/>
-    <rect x="160" y="120" width="50" height="180" fill="#0C0425"/>
-    <rect x="175" y="100" width="20" height="200" fill="#0E0530"/>
-    <rect x="220" y="170" width="70" height="130" fill="#080318"/>
-    <rect x="240" y="130" width="30" height="170" fill="#0A0420"/>
-    <rect x="300" y="90" width="60" height="210" fill="#0C0425"/>
-    <rect x="315" y="70" width="30" height="230" fill="#120640"/>
-    <rect x="370" y="150" width="80" height="150" fill="#080318"/>
-    <rect x="400" y="110" width="25" height="190" fill="#0A0420"/>
-    <rect x="460" y="130" width="55" height="170" fill="#0C0425"/>
-    <rect x="475" y="100" width="25" height="200" fill="#0E0530"/>
-    <rect x="525" y="180" width="70" height="120" fill="#080318"/>
-    <rect x="550" y="150" width="20" height="150" fill="#0A0420"/>
-    <rect x="605" y="100" width="65" height="200" fill="#0C0425"/>
-    <rect x="620" y="80" width="35" height="220" fill="#120640"/>
-    <rect x="680" y="160" width="60" height="140" fill="#080318"/>
-    <rect x="700" y="130" width="25" height="170" fill="#0A0420"/>
-    <rect x="740" y="110" width="60" height="190" fill="#0C0425"/>
-    <!-- Neon window dots -->
-    <rect x="25" y="150" width="4" height="3" fill="#FFD166" opacity=".7"/>
-    <rect x="35" y="155" width="4" height="3" fill="#FF2D7A" opacity=".6"/>
-    <rect x="165" y="130" width="4" height="3" fill="#FFD166" opacity=".8"/>
-    <rect x="182" y="115" width="4" height="3" fill="#00E5CC" opacity=".7"/>
-    <rect x="305" y="100" width="5" height="3" fill="#FFD166" opacity=".9"/>
-    <rect x="320" y="85" width="5" height="3" fill="#FF2D7A" opacity=".8"/>
-    <rect x="465" y="140" width="4" height="3" fill="#00E5CC" opacity=".7"/>
-    <rect x="478" y="115" width="4" height="3" fill="#FFD166" opacity=".6"/>
-    <rect x="612" y="110" width="5" height="3" fill="#FF2D7A" opacity=".9"/>
-    <rect x="628" y="95" width="5" height="3" fill="#FFD166" opacity=".8"/>
-    <!-- Ground glow -->
-    <rect x="0" y="280" width="800" height="20" fill="url(#groundGlow)"/>
-    <defs>
-      <linearGradient id="groundGlow" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#FFD166" stop-opacity=".15"/>
-        <stop offset="100%" stop-color="#FFD166" stop-opacity="0"/>
-      </linearGradient>
-    </defs>
-  </svg>
+  <!-- Hero background image -->
+  <img src="assets/splash-bg.png" class="splash-bg" alt=""
+       onerror="this.style.display='none';document.getElementById('splashFallback').style.display='block';">
 
-  <!-- Showgirl silhouette SVG -->
-  <svg style="position:absolute;bottom:0;right:8%;height:55%;pointer-events:none;opacity:.25;" viewBox="0 0 120 280" preserveAspectRatio="xMidYMax meet">
-    <!-- Feather headdress -->
-    <ellipse cx="60" cy="30" rx="40" ry="50" fill="none" stroke="#FFD166" stroke-width="2" opacity=".6"/>
-    <line x1="60" y1="30" x2="20" y2="-20" stroke="#FF2D7A" stroke-width="1.5" opacity=".7"/>
-    <line x1="60" y1="30" x2="100" y2="-20" stroke="#FF2D7A" stroke-width="1.5" opacity=".7"/>
-    <line x1="60" y1="30" x2="60" y2="-30" stroke="#FFD166" stroke-width="2" opacity=".8"/>
-    <line x1="60" y1="30" x2="30" y2="-10" stroke="#FFD166" stroke-width="1.5" opacity=".6"/>
-    <line x1="60" y1="30" x2="90" y2="-10" stroke="#FFD166" stroke-width="1.5" opacity=".6"/>
-    <!-- Head -->
-    <ellipse cx="60" cy="55" rx="14" ry="16" fill="#FFD166" opacity=".4"/>
-    <!-- Body -->
-    <path d="M46,71 Q35,110 38,160 L82,160 Q85,110 74,71 Z" fill="#FF2D7A" opacity=".35"/>
-    <!-- Legs -->
-    <line x1="50" y1="160" x2="44" y2="280" stroke="#FFD166" stroke-width="5" opacity=".3"/>
-    <line x1="70" y1="160" x2="76" y2="280" stroke="#FFD166" stroke-width="5" opacity=".3"/>
-    <!-- Arms -->
-    <line x1="38" y1="90" x2="10" y2="140" stroke="#FFD166" stroke-width="3" opacity=".25"/>
-    <line x1="82" y1="90" x2="110" y2="140" stroke="#FFD166" stroke-width="3" opacity=".25"/>
-  </svg>
-  <svg style="position:absolute;bottom:0;left:8%;height:45%;pointer-events:none;opacity:.2;transform:scaleX(-1);" viewBox="0 0 120 280" preserveAspectRatio="xMidYMax meet">
-    <ellipse cx="60" cy="30" rx="35" ry="45" fill="none" stroke="#FFD166" stroke-width="2" opacity=".5"/>
-    <line x1="60" y1="30" x2="60" y2="-25" stroke="#FFD166" stroke-width="2" opacity=".7"/>
-    <line x1="60" y1="30" x2="30" y2="-8" stroke="#FF2D7A" stroke-width="1.5" opacity=".6"/>
-    <line x1="60" y1="30" x2="90" y2="-8" stroke="#FF2D7A" stroke-width="1.5" opacity=".6"/>
-    <ellipse cx="60" cy="55" rx="14" ry="16" fill="#FFD166" opacity=".35"/>
-    <path d="M46,71 Q35,110 38,160 L82,160 Q85,110 74,71 Z" fill="#FFD166" opacity=".25"/>
-    <line x1="50" y1="160" x2="44" y2="280" stroke="#FFD166" stroke-width="5" opacity=".25"/>
-    <line x1="70" y1="160" x2="76" y2="280" stroke="#FFD166" stroke-width="5" opacity=".25"/>
-  </svg>
+  <!-- Procedural fallback if hero image missing -->
+  <div id="splashFallback" class="splash-fallback"></div>
 
-  <!-- Main splash content -->
-  <div style="position:relative;z-index:10;text-align:center;padding:20px;">
-    <!-- Art Deco frame lines -->
-    <div style="position:absolute;top:-20px;left:50%;transform:translateX(-50%);width:2px;height:20px;background:linear-gradient(180deg,transparent,var(--gold));"></div>
+  <!-- Dark vignette so text stays readable over busy bg -->
+  <div class="splash-vignette"></div>
 
-    <div style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:8px;color:var(--gold);opacity:.7;margin-bottom:8px;text-transform:uppercase;">Presents</div>
+  <!-- Animated star particles overlay -->
+  <canvas id="splashCanvas" class="splash-canvas"></canvas>
 
-    <div style="font-family:'Cinzel Decorative',serif;font-size:clamp(28px,8vw,64px);font-weight:700;line-height:1;
-      background:linear-gradient(175deg,#FFF8DC,#FFD166 30%,#E8901A 55%,#FFD166 75%,#FFF0A0);
-      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-      letter-spacing:3px;margin-bottom:4px;
-      filter:drop-shadow(0 0 40px rgba(255,200,80,.6));">
-      Vegas<br>Nights
+  <!-- Showgirl character (foreground, transparent PNG) -->
+  <img src="assets/splash-character.png" class="splash-character" alt=""
+       onerror="this.style.display='none';">
+
+  <!-- Title content positioned inside the hero's central cartouche -->
+  <div class="splash-content">
+    <div class="splash-presents">PRESENTS</div>
+    <div class="splash-title">Vegas<br>Nights</div>
+    <div class="splash-tm">™</div>
+    <div class="splash-subtitle">CASINO · VIP · VEGAS</div>
+  </div>
+
+  <!-- Jackpot teaser + CTA at bottom -->
+  <div class="splash-footer">
+    <div class="splash-jp-wrap">
+      <img src="assets/splash-frame.png" class="splash-jp-frame" alt=""
+           onerror="this.style.display='none';">
+      <div class="splash-jp-inner">
+        <div class="splash-jp-lbl">CASINO JACKPOT</div>
+        <div id="splashJP" class="splash-jp-val">$8,000</div>
+      </div>
     </div>
-    <div style="font-family:'Cinzel',serif;font-size:clamp(9px,2vw,14px);letter-spacing:10px;color:var(--gold);opacity:.8;margin:8px 0 4px;text-transform:uppercase;">™</div>
-
-    <!-- Neon subtitle -->
-    <div style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:5px;margin:12px 0;
-      color:var(--pink2);text-shadow:0 0 20px var(--pink),0 0 40px var(--pink);
-      animation:neonSubPulse 2s ease infinite alternate;">
-      CASINO · VIP · VEGAS
-    </div>
-
-    <!-- Diamond row -->
-    <div style="display:flex;align-items:center;justify-content:center;gap:12px;margin:16px 0;">
-      <div style="flex:1;max-width:80px;height:1px;background:linear-gradient(90deg,transparent,var(--gold));opacity:.5;"></div>
-      <span style="color:var(--gold);font-size:14px;opacity:.8;">◆</span>
-      <span style="color:var(--pink);font-size:10px;opacity:.7;">◆</span>
-      <span style="color:var(--gold);font-size:14px;opacity:.8;">◆</span>
-      <div style="flex:1;max-width:80px;height:1px;background:linear-gradient(90deg,var(--gold),transparent);opacity:.5;"></div>
-    </div>
-
-    <!-- Jackpot teaser -->
-    <div style="background:rgba(0,0,0,.5);border:1px solid rgba(255,209,102,.3);border-radius:4px;padding:10px 24px;margin:12px 0;display:inline-block;">
-      <div style="font-family:'Cinzel',serif;font-size:8px;letter-spacing:4px;color:rgba(255,209,102,.6);margin-bottom:4px;">CASINO JACKPOT</div>
-      <div id="splashJP" style="font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:700;color:var(--gold);filter:drop-shadow(0 0 16px rgba(255,209,102,.8));animation:jpPulse 1.5s ease infinite alternate;">$8,000</div>
-    </div>
-
-    <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:4px;color:rgba(255,255,255,.35);margin-top:20px;animation:tapPulse 1.5s ease infinite alternate;">
-      TAP TO PLAY
-    </div>
+    <div class="splash-tap">TAP TO PLAY</div>
   </div>
 </div>
 
@@ -484,6 +401,71 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opac
 @keyframes neonSubPulse{from{opacity:.7;text-shadow:0 0 10px var(--pink);}to{opacity:1;text-shadow:0 0 20px var(--pink),0 0 40px var(--pink),0 0 60px rgba(255,45,122,.3);}}
 @keyframes tapPulse{from{opacity:.2;}to{opacity:.6;}}
 @keyframes bigWinRise{0%{transform:scale(0.3) translateY(60px);opacity:0;}60%{transform:scale(1.15) translateY(-10px);opacity:1;}100%{transform:scale(1) translateY(0);opacity:1;}}
+
+/* ═══ SPLASH SCREEN COMPOSITION ═══ */
+.splash-root{position:fixed;inset:0;z-index:2000;background:#06020F;overflow:hidden;cursor:pointer;}
+.splash-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;z-index:1;animation:bgSlowZoom 18s ease-in-out infinite alternate;}
+@keyframes bgSlowZoom{from{transform:scale(1);}to{transform:scale(1.06);}}
+.splash-fallback{display:none;position:absolute;inset:0;z-index:1;
+  background:radial-gradient(ellipse 100% 70% at 50% 30%,#3A0860 0%,#1A0335 40%,#06020F 100%),
+    radial-gradient(ellipse 60% 40% at 20% 80%,rgba(255,45,122,.25),transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,209,102,.18),transparent 60%);}
+.splash-vignette{position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:radial-gradient(ellipse at center,transparent 35%,rgba(6,2,15,.55) 90%),
+    linear-gradient(180deg,rgba(6,2,15,.3) 0%,transparent 25%,transparent 65%,rgba(6,2,15,.7) 100%);}
+.splash-canvas{position:absolute;inset:0;pointer-events:none;z-index:3;mix-blend-mode:screen;opacity:.8;}
+.splash-character{
+  position:absolute;left:50%;bottom:-2%;
+  height:min(72vh,920px);max-width:90vw;object-fit:contain;object-position:bottom center;
+  z-index:5;pointer-events:none;
+  filter:drop-shadow(0 0 50px rgba(255,45,122,.4)) drop-shadow(0 12px 24px rgba(0,0,0,.7));
+  animation:charEnter 1.4s cubic-bezier(.175,.885,.32,1.275) .3s both,
+            charFloat 6s ease-in-out 1.8s infinite alternate;
+}
+@keyframes charEnter{from{transform:translateX(-50%) translateY(80px) scale(.92);opacity:0;}to{transform:translateX(-50%) translateY(0) scale(1);opacity:1;}}
+@keyframes charFloat{from{transform:translateX(-50%) translateY(0);}to{transform:translateX(-50%) translateY(-14px);}}
+.splash-content{
+  position:absolute;top:14%;left:50%;transform:translateX(-50%);
+  text-align:center;z-index:10;width:80%;max-width:560px;pointer-events:none;
+  animation:contentRise 1.2s cubic-bezier(.175,.885,.32,1.275) both;
+}
+@keyframes contentRise{from{transform:translateX(-50%) translateY(30px);opacity:0;}to{transform:translateX(-50%) translateY(0);opacity:1;}}
+.splash-presents{font-family:'Cinzel',serif;font-size:clamp(9px,1.6vw,12px);letter-spacing:10px;color:var(--gold);opacity:.8;margin-bottom:10px;text-transform:uppercase;filter:drop-shadow(0 2px 4px rgba(0,0,0,.9));}
+.splash-title{font-family:'Cinzel Decorative',serif;font-size:clamp(40px,11vw,92px);font-weight:700;line-height:.92;
+  background:linear-gradient(175deg,#FFF8DC,#FFD166 30%,#E8901A 55%,#FFD166 75%,#FFF0A0);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  letter-spacing:5px;
+  filter:drop-shadow(0 0 36px rgba(255,200,80,.7)) drop-shadow(0 4px 10px rgba(0,0,0,.9));
+  animation:titleGlow 4s ease infinite alternate;}
+.splash-tm{font-family:'Cinzel',serif;font-size:clamp(10px,2vw,14px);letter-spacing:12px;color:var(--gold);opacity:.85;margin:12px 0 4px;text-transform:uppercase;filter:drop-shadow(0 2px 4px rgba(0,0,0,.9));}
+.splash-subtitle{font-family:'Cinzel',serif;font-size:clamp(10px,1.8vw,13px);letter-spacing:7px;color:#FFB8D0;
+  text-shadow:0 0 14px var(--pink),0 0 28px rgba(255,45,122,.7),0 2px 4px rgba(0,0,0,.9);
+  animation:neonSubPulse 2s ease infinite alternate;margin-top:16px;}
+.splash-footer{position:absolute;bottom:6%;left:50%;transform:translateX(-50%);
+  text-align:center;z-index:15;width:90%;max-width:520px;pointer-events:none;
+  animation:footerRise 1.4s cubic-bezier(.175,.885,.32,1.275) .5s both;}
+@keyframes footerRise{from{transform:translateX(-50%) translateY(40px);opacity:0;}to{transform:translateX(-50%) translateY(0);opacity:1;}}
+.splash-jp-wrap{position:relative;display:inline-block;padding:14px 28px;}
+.splash-jp-frame{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:140%;height:auto;max-width:none;pointer-events:none;z-index:1;
+  filter:drop-shadow(0 8px 20px rgba(0,0,0,.7));}
+.splash-jp-inner{position:relative;z-index:2;padding:6px 32px;}
+.splash-jp-lbl{font-family:'Cinzel',serif;font-size:9px;letter-spacing:5px;color:rgba(255,209,102,.85);margin-bottom:2px;text-transform:uppercase;filter:drop-shadow(0 2px 4px rgba(0,0,0,1));}
+.splash-jp-val{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,5.5vw,46px);font-weight:700;color:var(--gold);
+  filter:drop-shadow(0 0 16px rgba(255,209,102,.95)) drop-shadow(0 3px 6px rgba(0,0,0,1));
+  animation:jpPulse 1.5s ease infinite alternate;}
+.splash-tap{font-family:'Cinzel',serif;font-size:clamp(9px,1.5vw,11px);letter-spacing:7px;color:rgba(255,255,255,.65);
+  margin-top:26px;text-transform:uppercase;animation:tapPulse 1.5s ease infinite alternate;
+  filter:drop-shadow(0 2px 4px rgba(0,0,0,1));}
+/* Landscape: pull character to right, content to left */
+@media (min-aspect-ratio:5/4){
+  .splash-character{left:auto;right:-2%;transform:none;bottom:-3%;height:95vh;}
+  .splash-character{animation:charEnterL 1.4s cubic-bezier(.175,.885,.32,1.275) .3s both,charFloatL 6s ease-in-out 1.8s infinite alternate;}
+  @keyframes charEnterL{from{transform:translateY(60px) scale(.92);opacity:0;}to{transform:translateY(0) scale(1);opacity:1;}}
+  @keyframes charFloatL{from{transform:translateY(0);}to{transform:translateY(-14px);}}
+  .splash-content{left:34%;top:18%;}
+  .splash-footer{left:34%;bottom:8%;}
+}
 </style>
 
 <div class="game">
