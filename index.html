@@ -13,14 +13,19 @@
   --border-gold:rgba(255,209,102,.35);
 }
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--deep);font-family:'Cinzel',serif;color:var(--text);
+body{background:#06020F url('assets/splash-bg.png') center 25%/cover fixed no-repeat;
+  font-family:'Cinzel',serif;color:var(--text);
   min-height:100vh;display:flex;flex-direction:column;align-items:center;
   justify-content:flex-start;overflow-x:hidden;padding:8px 4px 16px;}
 body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
-  background:radial-gradient(ellipse 120% 60% at 50% -5%,#2A0845 0%,transparent 55%),
-    radial-gradient(ellipse 60% 40% at 0% 60%,#0D0030 0%,transparent 50%),
-    radial-gradient(ellipse 60% 40% at 100% 40%,#130018 0%,transparent 50%),
-    radial-gradient(ellipse 80% 30% at 50% 100%,#0A001A 0%,transparent 60%);}
+  background:
+    radial-gradient(ellipse 120% 60% at 50% -5%,rgba(42,8,69,.55) 0%,transparent 60%),
+    radial-gradient(ellipse 60% 40% at 0% 60%,rgba(13,0,48,.5) 0%,transparent 55%),
+    radial-gradient(ellipse 60% 40% at 100% 40%,rgba(19,0,24,.5) 0%,transparent 55%),
+    radial-gradient(ellipse 80% 30% at 50% 100%,rgba(10,0,26,.6) 0%,transparent 65%),
+    rgba(6,2,15,.78);
+  backdrop-filter:blur(8px) saturate(.85);
+  -webkit-backdrop-filter:blur(8px) saturate(.85);}
 body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.025;
   background-image:repeating-linear-gradient(45deg,var(--gold) 0,var(--gold) 1px,transparent 0,transparent 50%),
     repeating-linear-gradient(-45deg,var(--gold) 0,var(--gold) 1px,transparent 0,transparent 50%);
@@ -57,11 +62,12 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opac
 .jp-col{display:flex;flex-direction:column;gap:4px;width:100%;align-items:center;}
 .jp-top{width:100%;text-align:center;
   background:linear-gradient(160deg,#1C0535 0%,#2D0850 40%,#1C0535 100%);
-  border:1px solid rgba(255,209,102,.6);border-radius:4px;padding:7px 16px;
-  position:relative;overflow:hidden;
-  box-shadow:0 0 30px rgba(255,209,102,.15),inset 0 1px 0 rgba(255,255,255,.04);}
-.jp-top::before,.jp-top::after{content:'◆';position:absolute;color:var(--gold);font-size:10px;opacity:.5;top:50%;transform:translateY(-50%);}
+  border:1px solid rgba(255,209,102,.6);border-radius:4px;padding:9px 16px;
+  position:relative;
+  box-shadow:0 0 30px rgba(255,209,102,.2),inset 0 1px 0 rgba(255,255,255,.04);}
+.jp-top::before,.jp-top::after{content:'◆';position:absolute;color:var(--gold);font-size:10px;opacity:.5;top:50%;transform:translateY(-50%);z-index:2;}
 .jp-top::before{left:12px;}.jp-top::after{right:12px;}
+.jp-lights{position:absolute;inset:0;pointer-events:none;z-index:1;border-radius:4px;}
 .jp-top .jname{font-family:'Cinzel',serif;font-size:9px;letter-spacing:6px;text-transform:uppercase;color:var(--gold);opacity:.8;margin-bottom:2px;}
 .jp-top .jamt{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,7vw,50px);font-weight:700;color:var(--gold);line-height:1;
   animation:jpPulse 1.5s ease infinite alternate;}
@@ -103,12 +109,23 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opac
 
 /* MACHINE */
 .machine{width:100%;
-  background:linear-gradient(180deg,#150430 0%,#0A0118 45%,#0A0118 55%,#150430 100%);
-  border:1px solid rgba(255,209,102,.35);border-radius:6px;padding:10px;position:relative;
-  box-shadow:0 0 0 1px rgba(255,209,102,.06),0 0 40px rgba(90,0,120,.25),inset 0 0 30px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.03);
+  background:linear-gradient(180deg,#1A063A 0%,#0A0118 45%,#0A0118 55%,#1A063A 100%);
+  border:1px solid rgba(255,209,102,.55);border-radius:10px;padding:14px 12px;position:relative;
+  box-shadow:
+    0 0 0 2px rgba(20,5,40,.95),
+    0 0 0 3px rgba(255,209,102,.45),
+    0 0 0 5px rgba(20,5,40,.95),
+    0 0 0 6px rgba(255,209,102,.15),
+    0 6px 40px rgba(90,0,120,.45),
+    inset 0 0 30px rgba(0,0,0,.7),
+    inset 0 1px 0 rgba(255,255,255,.05);
   overflow:visible;}
-.machine::before,.machine::after{content:'✦';position:absolute;font-size:13px;color:var(--gold);opacity:.65;filter:drop-shadow(0 0 5px rgba(255,209,102,.5));}
-.machine::before{top:8px;left:12px;}.machine::after{top:8px;right:12px;}
+.machine::before,.machine::after{content:'✦';position:absolute;font-size:16px;color:var(--gold);
+  opacity:.85;filter:drop-shadow(0 0 6px rgba(255,209,102,.7));pointer-events:none;z-index:21;}
+.machine::before{top:8px;left:10px;}.machine::after{top:8px;right:10px;}
+.machine .corner-bl,.machine .corner-br{position:absolute;font-size:16px;color:var(--gold);
+  opacity:.85;filter:drop-shadow(0 0 6px rgba(255,209,102,.7));pointer-events:none;z-index:21;}
+.machine .corner-bl{bottom:8px;left:10px;}.machine .corner-br{bottom:8px;right:10px;}
 .machine-lights{position:absolute;inset:0;border-radius:6px;pointer-events:none;z-index:20;overflow:hidden;}
 .bulb{position:absolute;width:5px;height:5px;border-radius:50%;animation:bulbPulse var(--bd,.6s) var(--bdl,0s) ease infinite alternate;}
 @keyframes bulbPulse{from{opacity:.3;transform:scale(.8);}to{opacity:1;transform:scale(1.4);box-shadow:0 0 5px 2px currentColor;}}
@@ -136,16 +153,22 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opac
 @keyframes bnc{0%,100%{transform:scale(1)}50%{transform:scale(1.14)}}
 
 /* REELS */
-.reels-wrap{display:flex;gap:4px;background:rgba(0,0,0,.75);border:1px solid rgba(255,209,102,.15);
-  border-radius:4px;padding:8px 6px;position:relative;overflow:hidden;}
-.reels-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(255,209,102,.25),transparent);}
+.reels-wrap{display:flex;gap:0;background:rgba(0,0,0,.85);border:1px solid rgba(255,209,102,.35);
+  border-radius:4px;padding:8px 6px;position:relative;overflow:hidden;
+  box-shadow:inset 0 2px 8px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,209,102,.08);}
+.reels-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,rgba(255,209,102,.5),transparent);}
 .reels-wrap.winning::after{content:'';position:absolute;top:50%;left:0;right:0;height:2px;
   background:linear-gradient(90deg,transparent,var(--gold),transparent);
   transform:translateY(-50%);animation:wline 1s ease infinite;pointer-events:none;z-index:20;}
 @keyframes wline{0%,100%{opacity:.2}50%{opacity:.8}}
-.reel{flex:1;height:228px;overflow:hidden;border-radius:3px;border:1px solid rgba(255,209,102,.08);position:relative;
-  background:linear-gradient(180deg,#010005,#070012,#010005);}
+.reel{flex:1;height:228px;overflow:hidden;position:relative;
+  background:linear-gradient(180deg,#010005,#070012,#010005);
+  border-left:1px solid rgba(255,209,102,.28);
+  border-right:1px solid rgba(255,209,102,.28);
+  box-shadow:inset 1px 0 0 rgba(0,0,0,.6),inset -1px 0 0 rgba(0,0,0,.6);}
+.reel:first-child{border-left-color:rgba(255,209,102,.05);}
+.reel:last-child{border-right-color:rgba(255,209,102,.05);}
 .reel::before,.reel::after{content:'';position:absolute;left:0;right:0;height:40px;z-index:10;pointer-events:none;}
 .reel::before{top:0;background:linear-gradient(180deg,rgba(4,1,10,.98),transparent);}
 .reel::after{bottom:0;background:linear-gradient(0deg,rgba(4,1,10,.98),transparent);}
@@ -483,6 +506,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opac
 
   <div class="jp-col">
     <div class="jbox casino-j jp-top">
+      <div class="jp-lights" id="jpLights"></div>
       <div class="jname">★ CASINO JACKPOT ★</div>
       <div class="jamt" id="jGrand">$8,000</div>
     </div>
@@ -505,6 +529,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opac
   <div class="msg" id="msgEl">✦ Press SPIN to play ✦</div>
 
   <div class="machine" style="position:relative">
+    <span class="corner-bl">✦</span><span class="corner-br">✦</span>
     <div class="machine-lights" id="machineLights"></div>
     <div class="feat-banner" id="fsBanner">FREE GAMES ACTIVE</div>
     <div class="fs-badge" id="fsBadge">0</div>
@@ -1033,6 +1058,29 @@ function toggleMusic(){
     b.style.cssText=`left:${pos.x};top:${pos.y};color:${pos.color};background:${pos.color};--bd:${0.4+Math.random()*0.8}s;--bdl:${(idx*0.05)%1}s;`;
     container.appendChild(b);
   });
+})();
+
+// Bulbs around the Casino Jackpot panel
+(function buildJPLights(){
+  const c=document.getElementById('jpLights');
+  if(!c)return;
+  const colors=['#FFD700','#FF1493','#FFFFFF','#00FFEE','#FFD700','#FF6600'];
+  const COUNT=22;
+  for(let i=0;i<=COUNT;i++){
+    const pct=(i/COUNT)*100;
+    // top row
+    const t=document.createElement('div');
+    t.className='bulb';
+    const ct=colors[i%colors.length];
+    t.style.cssText=`left:${pct}%;top:-2px;color:${ct};background:${ct};width:3.5px;height:3.5px;transform:translateX(-50%);--bd:${0.35+Math.random()*0.5}s;--bdl:${(i*0.05)%1}s;`;
+    c.appendChild(t);
+    // bottom row
+    const b=document.createElement('div');
+    b.className='bulb';
+    const cb=colors[(i+3)%colors.length];
+    b.style.cssText=`left:${pct}%;top:calc(100% - 2px);color:${cb};background:${cb};width:3.5px;height:3.5px;transform:translateX(-50%);--bd:${0.35+Math.random()*0.5}s;--bdl:${(i*0.06)%1}s;`;
+    c.appendChild(b);
+  }
 })();
 
 // ═══════════════════════════════════════════════════════════════
